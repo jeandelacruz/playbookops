@@ -1,0 +1,10 @@
+import fs from "node:fs";
+import { kiroSteeringFiles } from "../site/prompt-explorer/src/playbook-adapters.js";
+import { findPlaybook, parseArgs } from "./lib.js";
+const args = parseArgs();
+const playbook = findPlaybook(String(args.playbook ?? ""));
+const base = `adapters/kiro/${playbook.id}/.kiro/steering`;
+fs.mkdirSync(base, { recursive: true });
+const files = kiroSteeringFiles(playbook);
+for (const [name, content] of Object.entries(files)) fs.writeFileSync(`${base}/${name}`, content);
+console.log(`Wrote ${base}`);

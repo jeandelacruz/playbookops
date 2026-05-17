@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PlaybookOps</title>
+    <!-- Google Tag Manager -->
+    <script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-N6R2PQ5P');
+    </script>
+    <!-- End Google Tag Manager -->
+    <style>
+      :root {
+        --initial-bg: #f8fafb;
+        --initial-panel: #ffffff;
+        --initial-text: #182838;
+        --initial-muted: #667587;
+        --initial-border: #d4dde5;
+        --initial-steel: #2e566f;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --initial-bg: #0d141b;
+          --initial-panel: #17212b;
+          --initial-text: #e6eef4;
+          --initial-muted: #94a6b6;
+          --initial-border: #2b3a47;
+          --initial-steel: #7da8c2;
+        }
+      }
+      #initial-loader {
+        align-items: center;
+        background: var(--initial-bg);
+        color: var(--initial-text);
+        display: flex;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        inset: 0;
+        justify-content: center;
+        padding: 24px;
+        position: fixed;
+        z-index: 9999;
+      }
+      #initial-loader > div {
+        background: var(--initial-panel);
+        border: 1px solid var(--initial-border);
+        border-radius: 14px;
+        box-shadow: 0 18px 50px rgba(24, 40, 56, .14);
+        min-width: min(360px, 100%);
+        padding: 18px;
+      }
+      #initial-loader strong {
+        display: block;
+        font-size: 17px;
+      }
+      #initial-loader span {
+        color: var(--initial-muted);
+        display: block;
+        font-size: 13px;
+        margin-top: 4px;
+      }
+      #initial-loader i {
+        background: var(--initial-steel);
+        border-radius: 999px;
+        display: block;
+        height: 6px;
+        margin-top: 14px;
+        width: 42%;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N6R2PQ5P"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div id="initial-loader" role="status" aria-label="Loading PlaybookOps">
+      <div>
+        <strong>PlaybookOps</strong>
+        <span>Loading reusable engineering playbooks</span>
+        <i></i>
+      </div>
+    </div>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

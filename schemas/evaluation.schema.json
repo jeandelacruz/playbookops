@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PromptOps Evaluation",
+  "type": "object",
+  "required": [
+    "maturity_level",
+    "scorecard"
+  ],
+  "properties": {
+    "maturity_level": {
+      "enum": [
+        "L0",
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5"
+      ]
+    },
+    "scorecard": {
+      "type": "object",
+      "required": [
+        "clarity",
+        "evidence",
+        "safety",
+        "output_contract",
+        "portability",
+        "reusability",
+        "community_value",
+        "maintainability"
+      ],
+      "additionalProperties": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 5
+      }
+    }
+  }
+}

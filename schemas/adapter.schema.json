@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PlaybookOps Adapter",
+  "type": "object",
+  "required": [
+    "format",
+    "notes"
+  ],
+  "properties": {
+    "format": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

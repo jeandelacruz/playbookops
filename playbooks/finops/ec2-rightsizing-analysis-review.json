@@ -1,0 +1,164 @@
+{
+  "id": "ec2-rightsizing-analysis-review",
+  "title": "EC2 Rightsizing Analysis Review",
+  "summary": "Cost and usage review for EC2, CloudWatch, focused on verified spend drivers, optimization paths, and measurable impact.",
+  "description": "EC2 Rightsizing Analysis Review guides a scoped review of EC2, CloudWatch, turning verified evidence into risk-aware findings, practical recommendations, validation checks, and explicit limitations.",
+  "when_to_use": [
+    "Use when spend, utilization, or cost allocation needs evidence-backed analysis instead of rough estimates.",
+    "Use during monthly cost reviews, optimization planning, tagging cleanup, or savings opportunity validation."
+  ],
+  "domain": "finops",
+  "category": "finops",
+  "tools": [
+    "codex",
+    "claude-code",
+    "kiro",
+    "cursor",
+    "windsurf",
+    "github-copilot",
+    "gemini-cli",
+    "aider"
+  ],
+  "cloud": [
+    "aws"
+  ],
+  "services": [
+    "EC2",
+    "CloudWatch"
+  ],
+  "difficulty": "intermediate",
+  "risk_level": "medium",
+  "execution_mode": "read-only",
+  "status": "validated",
+  "owner": "community",
+  "version": "0.1.0",
+  "requires_permissions": [
+    "ec2:Describe*",
+    "cloudwatch:DescribeAlarms"
+  ],
+  "input_variables": [
+    {
+      "name": "scope",
+      "type": "string",
+      "required": true,
+      "description": "System, account, repository, service, or feature scope to inspect."
+    },
+    {
+      "name": "environment",
+      "type": "string",
+      "required": false,
+      "default": "unknown",
+      "description": "Environment such as dev, staging, production, or shared services."
+    },
+    {
+      "name": "lookback_days",
+      "type": "number",
+      "required": false,
+      "default": 30,
+      "description": "Lookback window for metrics, logs, incidents, costs, or repository history."
+    }
+  ],
+  "output_contract": {
+    "format": "markdown",
+    "sections": [
+      "cost_summary",
+      "scope_and_time_window",
+      "cost_evidence_sources",
+      "spend_drivers",
+      "optimization_opportunities",
+      "estimated_impact",
+      "implementation_considerations",
+      "validation_checks",
+      "limitations"
+    ]
+  },
+  "expected_output": {
+    "style": "cost optimization assessment with verified savings opportunities",
+    "sections": [
+      "EC2 Rightsizing Analysis Review summary and decision context",
+      "Verified scope covering EC2, CloudWatch",
+      "Evidence inventory with commands, files, APIs, logs, metrics, or artifacts used",
+      "Findings grouped by severity with impact and confidence",
+      "Recommended actions with owner, priority, effort, expected impact, and validation steps",
+      "Assumptions, failed checks, missing permissions, and known limitations"
+    ],
+    "quality_checks": [
+      "Confirm every material claim is backed by cited evidence or marked as an assumption.",
+      "Verify counts, percentages, severity labels, and recommendations before presenting the result.",
+      "Validate cost or savings estimates against the stated time window and data source.",
+      "Ensure the final answer includes every required output contract section.",
+      "Confirm no destructive or production-impacting action is executed without explicit approval."
+    ]
+  },
+  "evidence_policy": {
+    "must_verify_with_api": true,
+    "must_paginate": true,
+    "no_inference_from_names": true,
+    "state_limitations": true,
+    "include_api_failures": true,
+    "cite_files_or_commands": true
+  },
+  "safety_rules": [
+    "Operate read-only unless the user explicitly approves a change.",
+    "Do not delete, mutate, deploy, rotate, revoke, or reconfigure production resources.",
+    "Do not invent evidence. Clearly mark unknowns and unavailable APIs.",
+    "Ask for explicit confirmation before recommending execution of destructive or high-risk actions.",
+    "Separate verified findings from hypotheses and recommendations."
+  ],
+  "prompt": "<role>\nYou are a senior finops engineer executing a PlaybookOps workflow for EC2 Rightsizing Analysis Review.\n</role>\n\n<context>\nEC2 Rightsizing Analysis Review guides a scoped review of EC2, CloudWatch, turning verified evidence into risk-aware findings, practical recommendations, validation checks, and explicit limitations.\nDomain: finops\nCategory: finops\nServices or systems: EC2, CloudWatch\nExecution mode: read-only\nRisk level: medium\n</context>\n\n<task>\nUse the required inputs (scope) to inspect the declared scope and produce a decision-ready result for EC2 Rightsizing Analysis Review.\nCollect only verifiable evidence from repository files, commands, APIs, logs, metrics, dashboards, tickets, or user-provided artifacts.\nDo not treat naming conventions, ownership guesses, or environment labels as facts unless they are verified.\n</task>\n\n<scope>\n- Analyze EC2, CloudWatch within the declared scope.\n- Use these minimum permissions or evidence channels when applicable: ec2:Describe*, cloudwatch:DescribeAlarms.\n- Classify findings by severity, confidence, expected impact, and validation path.\n- Recommend actions without executing mutating changes unless the user explicitly approves them.\n</scope>\n\n<evidence>\n- must_verify_with_api: true\n- must_paginate: true\n- no_inference_from_names: true\n- state_limitations: true\n- include_api_failures: true\n- cite_files_or_commands: true\n</evidence>\n\n<expected_output>\nStyle: cost optimization assessment with verified savings opportunities\n- EC2 Rightsizing Analysis Review summary and decision context\n- Verified scope covering EC2, CloudWatch\n- Evidence inventory with commands, files, APIs, logs, metrics, or artifacts used\n- Findings grouped by severity with impact and confidence\n- Recommended actions with owner, priority, effort, expected impact, and validation steps\n- Assumptions, failed checks, missing permissions, and known limitations\n</expected_output>\n\n<quality>\n- Confirm every material claim is backed by cited evidence or marked as an assumption.\n- Verify counts, percentages, severity labels, and recommendations before presenting the result.\n- Validate cost or savings estimates against the stated time window and data source.\n- Ensure the final answer includes every required output contract section.\n- Confirm no destructive or production-impacting action is executed without explicit approval.\n</quality>\n\n<safety>\n- Operate read-only unless the user explicitly approves a change.\n- Do not delete, mutate, deploy, rotate, revoke, or reconfigure production resources.\n- Do not invent evidence. Clearly mark unknowns and unavailable APIs.\n- Ask for explicit confirmation before recommending execution of destructive or high-risk actions.\n- Separate verified findings from hypotheses and recommendations.\n</safety>\n\n<output_contract>\nReturn Markdown with these required sections:\n- cost_summary\n- scope_and_time_window\n- cost_evidence_sources\n- spend_drivers\n- optimization_opportunities\n- estimated_impact\n- implementation_considerations\n- validation_checks\n- limitations\n</output_contract>",
+  "adapters": {
+    "codex": {
+      "format": "task-prompt",
+      "notes": "Use inside AGENTS.md or as a direct Codex task with repository context."
+    },
+    "claude_code": {
+      "format": "CLAUDE.md compatible task",
+      "notes": "Use with repository-level CLAUDE.md instructions."
+    },
+    "kiro": {
+      "format": "steering/spec/task",
+      "notes": "Export as steering files or spec documents for Kiro-compatible workflows."
+    },
+    "cursor": {
+      "format": "workspace-rule-or-task",
+      "notes": "Use as a Cursor workspace rule or task prompt."
+    },
+    "windsurf": {
+      "format": "workspace-rule-or-task",
+      "notes": "Use as a Windsurf rule or task prompt."
+    },
+    "github_copilot": {
+      "format": "copilot-instructions",
+      "notes": "Use as.github/copilot-instructions.md guidance."
+    }
+  },
+  "evaluation": {
+    "maturity_level": "L3",
+    "scorecard": {
+      "clarity": 4,
+      "evidence": 4,
+      "safety": 5,
+      "output_contract": 5,
+      "portability": 4,
+      "reusability": 4,
+      "community_value": 4,
+      "maintainability": 4
+    }
+  },
+  "tags": [
+    "cost",
+    "rightsizing",
+    "ec2",
+    "cpu",
+    "optimization"
+  ],
+  "changelog": [
+    {
+      "version": "0.1.0",
+      "date": "2026-05-15",
+      "changes": [
+        "Initial library version."
+      ]
+    }
+  ]
+}

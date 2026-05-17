@@ -1,0 +1,162 @@
+{
+  "id": "generate-agents-md",
+  "title": "Generate AGENTS.md",
+  "summary": "Generate repository-level AGENTS.md instructions from project evidence and engineering conventions.",
+  "description": "Generate AGENTS.md converts repository evidence into durable agent instructions covering conventions, commands, safety boundaries, and review expectations.",
+  "when_to_use": [
+    "Use when a repository needs durable agent instructions based on actual project conventions and safety boundaries.",
+    "Use before onboarding coding agents, preparing workspace rules, or standardizing team automation guidance."
+  ],
+  "domain": "agent-context",
+  "category": "agent-instructions",
+  "tools": [
+    "codex",
+    "claude-code",
+    "kiro",
+    "cursor",
+    "windsurf",
+    "github-copilot",
+    "gemini-cli",
+    "aider"
+  ],
+  "cloud": [
+    "generic"
+  ],
+  "services": [
+    "Codex",
+    "Repository"
+  ],
+  "difficulty": "beginner",
+  "risk_level": "low",
+  "execution_mode": "write-proposal",
+  "status": "draft",
+  "owner": "community",
+  "version": "0.1.0",
+  "requires_permissions": [
+    "read repository files",
+    "read package manifests",
+    "read test and build configuration"
+  ],
+  "input_variables": [
+    {
+      "name": "scope",
+      "type": "string",
+      "required": true,
+      "description": "System, account, repository, service, or feature scope to inspect."
+    },
+    {
+      "name": "environment",
+      "type": "string",
+      "required": false,
+      "default": "unknown",
+      "description": "Environment such as dev, staging, production, or shared services."
+    },
+    {
+      "name": "lookback_days",
+      "type": "number",
+      "required": false,
+      "default": 30,
+      "description": "Lookback window for metrics, logs, incidents, costs, or repository history."
+    }
+  ],
+  "output_contract": {
+    "format": "markdown",
+    "sections": [
+      "project_context_summary",
+      "repository_conventions",
+      "agent_behavior_rules",
+      "required_commands_and_workflows",
+      "safety_guardrails",
+      "generated_instruction_artifact",
+      "review_checklist",
+      "maintenance_notes"
+    ]
+  },
+  "expected_output": {
+    "style": "repository-ready agent instruction package",
+    "sections": [
+      "Generate AGENTS.md summary and decision context",
+      "Repository conventions, commands, tools, and guardrails to preserve",
+      "Evidence inventory with commands, files, APIs, logs, metrics, or artifacts used",
+      "Findings grouped by severity with impact and confidence",
+      "Recommended actions with owner, priority, effort, expected impact, and validation steps",
+      "Assumptions, failed checks, missing permissions, and known limitations"
+    ],
+    "quality_checks": [
+      "Confirm every material claim is backed by cited evidence or marked as an assumption.",
+      "Verify counts, percentages, severity labels, and recommendations before presenting the result.",
+      "Confirm generated instructions are actionable without embedding secrets or private credentials.",
+      "Ensure the final answer includes every required output contract section.",
+      "Confirm no destructive or production-impacting action is executed without explicit approval."
+    ]
+  },
+  "evidence_policy": {
+    "must_verify_with_api": false,
+    "must_paginate": true,
+    "no_inference_from_names": true,
+    "state_limitations": true,
+    "include_api_failures": true,
+    "cite_files_or_commands": true
+  },
+  "safety_rules": [
+    "Operate read-only unless the user explicitly approves a change.",
+    "Do not delete, mutate, deploy, rotate, revoke, or reconfigure production resources.",
+    "Do not invent evidence. Clearly mark unknowns and unavailable APIs.",
+    "Ask for explicit confirmation before recommending execution of destructive or high-risk actions.",
+    "Separate verified findings from hypotheses and recommendations."
+  ],
+  "prompt": "<role>\nYou are a senior agent context engineer executing a PlaybookOps workflow for Generate AGENTS.md.\n</role>\n\n<context>\nGenerate AGENTS.md converts repository evidence into durable agent instructions covering conventions, commands, safety boundaries, and review expectations.\nDomain: agent-context\nCategory: agent-instructions\nServices or systems: Codex, Repository\nExecution mode: write-proposal\nRisk level: low\n</context>\n\n<task>\nUse the required inputs (scope) to inspect the declared scope and produce a decision-ready result for Generate AGENTS.md.\nCollect only verifiable evidence from repository files, commands, APIs, logs, metrics, dashboards, tickets, or user-provided artifacts.\nDo not treat naming conventions, ownership guesses, or environment labels as facts unless they are verified.\n</task>\n\n<scope>\n- Analyze Codex, Repository within the declared scope.\n- Use these minimum permissions or evidence channels when applicable: read repository files, read package manifests, read test and build configuration.\n- Classify findings by severity, confidence, expected impact, and validation path.\n- Recommend actions without executing mutating changes unless the user explicitly approves them.\n</scope>\n\n<evidence>\n- must_verify_with_api: false\n- must_paginate: true\n- no_inference_from_names: true\n- state_limitations: true\n- include_api_failures: true\n- cite_files_or_commands: true\n</evidence>\n\n<expected_output>\nStyle: repository-ready agent instruction package\n- Generate AGENTS.md summary and decision context\n- Repository conventions, commands, tools, and guardrails to preserve\n- Evidence inventory with commands, files, APIs, logs, metrics, or artifacts used\n- Findings grouped by severity with impact and confidence\n- Recommended actions with owner, priority, effort, expected impact, and validation steps\n- Assumptions, failed checks, missing permissions, and known limitations\n</expected_output>\n\n<quality>\n- Confirm every material claim is backed by cited evidence or marked as an assumption.\n- Verify counts, percentages, severity labels, and recommendations before presenting the result.\n- Confirm generated instructions are actionable without embedding secrets or private credentials.\n- Ensure the final answer includes every required output contract section.\n- Confirm no destructive or production-impacting action is executed without explicit approval.\n</quality>\n\n<safety>\n- Operate read-only unless the user explicitly approves a change.\n- Do not delete, mutate, deploy, rotate, revoke, or reconfigure production resources.\n- Do not invent evidence. Clearly mark unknowns and unavailable APIs.\n- Ask for explicit confirmation before recommending execution of destructive or high-risk actions.\n- Separate verified findings from hypotheses and recommendations.\n</safety>\n\n<output_contract>\nReturn Markdown with these required sections:\n- project_context_summary\n- repository_conventions\n- agent_behavior_rules\n- required_commands_and_workflows\n- safety_guardrails\n- generated_instruction_artifact\n- review_checklist\n- maintenance_notes\n</output_contract>",
+  "adapters": {
+    "codex": {
+      "format": "task-prompt",
+      "notes": "Use inside AGENTS.md or as a direct Codex task with repository context."
+    },
+    "claude_code": {
+      "format": "CLAUDE.md compatible task",
+      "notes": "Use with repository-level CLAUDE.md instructions."
+    },
+    "kiro": {
+      "format": "steering/spec/task",
+      "notes": "Export as steering files or spec documents for Kiro-compatible workflows."
+    },
+    "cursor": {
+      "format": "workspace-rule-or-task",
+      "notes": "Use as a Cursor workspace rule or task prompt."
+    },
+    "windsurf": {
+      "format": "workspace-rule-or-task",
+      "notes": "Use as a Windsurf rule or task prompt."
+    },
+    "github_copilot": {
+      "format": "copilot-instructions",
+      "notes": "Use as.github/copilot-instructions.md guidance."
+    }
+  },
+  "evaluation": {
+    "maturity_level": "L3",
+    "scorecard": {
+      "clarity": 4,
+      "evidence": 4,
+      "safety": 5,
+      "output_contract": 5,
+      "portability": 4,
+      "reusability": 4,
+      "community_value": 4,
+      "maintainability": 4
+    }
+  },
+  "tags": [
+    "agents-md",
+    "codex",
+    "agent-context"
+  ],
+  "changelog": [
+    {
+      "version": "0.1.0",
+      "date": "2026-05-15",
+      "changes": [
+        "Initial library version."
+      ]
+    }
+  ]
+}

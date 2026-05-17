@@ -1,0 +1,166 @@
+{
+  "id": "ecs-service-recovery-readiness-check",
+  "title": "ECS Service Recovery Readiness Check",
+  "summary": "Incident analysis workflow for ECS, ELB, CloudWatch, focused on timeline evidence, impact, likely causes, and follow-up validation.",
+  "description": "ECS Service Recovery Readiness Check guides a scoped review of ECS, ELB, CloudWatch, turning verified evidence into risk-aware findings, practical recommendations, validation checks, and explicit limitations.",
+  "when_to_use": [
+    "Use when an incident or reliability signal needs a timeline, verified evidence, impact assessment, and follow-up validation.",
+    "Use during triage, post-incident review, recurring failure analysis, or customer-impact investigation."
+  ],
+  "domain": "incident-response",
+  "category": "troubleshooting",
+  "tools": [
+    "codex",
+    "claude-code",
+    "kiro",
+    "cursor",
+    "windsurf",
+    "github-copilot",
+    "gemini-cli",
+    "aider"
+  ],
+  "cloud": [
+    "aws"
+  ],
+  "services": [
+    "ECS",
+    "ELB",
+    "CloudWatch"
+  ],
+  "difficulty": "intermediate",
+  "risk_level": "medium",
+  "execution_mode": "read-only",
+  "status": "validated",
+  "owner": "community",
+  "version": "0.1.0",
+  "requires_permissions": [
+    "ecs:Describe*",
+    "cloudwatch:DescribeAlarms"
+  ],
+  "input_variables": [
+    {
+      "name": "scope",
+      "type": "string",
+      "required": true,
+      "description": "System, account, repository, service, or feature scope to inspect."
+    },
+    {
+      "name": "environment",
+      "type": "string",
+      "required": false,
+      "default": "unknown",
+      "description": "Environment such as dev, staging, production, or shared services."
+    },
+    {
+      "name": "lookback_days",
+      "type": "number",
+      "required": false,
+      "default": 30,
+      "description": "Lookback window for metrics, logs, incidents, costs, or repository history."
+    }
+  ],
+  "output_contract": {
+    "format": "markdown",
+    "sections": [
+      "incident_summary",
+      "scope_and_time_window",
+      "evidence_timeline",
+      "signals_reviewed",
+      "findings_by_severity",
+      "suspected_and_confirmed_causes",
+      "customer_or_service_impact",
+      "immediate_actions",
+      "follow_up_validation",
+      "limitations"
+    ]
+  },
+  "expected_output": {
+    "style": "incident investigation brief with evidence, timeline, and next actions",
+    "sections": [
+      "ECS Service Recovery Readiness Check summary and decision context",
+      "Verified scope covering ECS, ELB, CloudWatch",
+      "Evidence inventory with commands, files, APIs, logs, metrics, or artifacts used",
+      "Timeline or sequence of relevant events with evidence links",
+      "Findings grouped by severity with impact and confidence",
+      "Recommended actions with owner, priority, effort, expected impact, and validation steps",
+      "Assumptions, failed checks, missing permissions, and known limitations"
+    ],
+    "quality_checks": [
+      "Confirm every material claim is backed by cited evidence or marked as an assumption.",
+      "Verify counts, percentages, severity labels, and recommendations before presenting the result.",
+      "Separate confirmed customer or service impact from suspected impact.",
+      "Ensure the final answer includes every required output contract section.",
+      "Confirm no destructive or production-impacting action is executed without explicit approval."
+    ]
+  },
+  "evidence_policy": {
+    "must_verify_with_api": true,
+    "must_paginate": true,
+    "no_inference_from_names": true,
+    "state_limitations": true,
+    "include_api_failures": true,
+    "cite_files_or_commands": true
+  },
+  "safety_rules": [
+    "Operate read-only unless the user explicitly approves a change.",
+    "Do not delete, mutate, deploy, rotate, revoke, or reconfigure production resources.",
+    "Do not invent evidence. Clearly mark unknowns and unavailable APIs.",
+    "Ask for explicit confirmation before recommending execution of destructive or high-risk actions.",
+    "Separate verified findings from hypotheses and recommendations."
+  ],
+  "prompt": "<role>\nYou are a senior incident response engineer executing a PlaybookOps workflow for ECS Service Recovery Readiness Check.\n</role>\n\n<context>\nECS Service Recovery Readiness Check guides a scoped review of ECS, ELB, CloudWatch, turning verified evidence into risk-aware findings, practical recommendations, validation checks, and explicit limitations.\nDomain: incident-response\nCategory: troubleshooting\nServices or systems: ECS, ELB, CloudWatch\nExecution mode: read-only\nRisk level: medium\n</context>\n\n<task>\nUse the required inputs (scope) to inspect the declared scope and produce a decision-ready result for ECS Service Recovery Readiness Check.\nCollect only verifiable evidence from repository files, commands, APIs, logs, metrics, dashboards, tickets, or user-provided artifacts.\nDo not treat naming conventions, ownership guesses, or environment labels as facts unless they are verified.\n</task>\n\n<scope>\n- Analyze ECS, ELB, CloudWatch within the declared scope.\n- Use these minimum permissions or evidence channels when applicable: ecs:Describe*, cloudwatch:DescribeAlarms.\n- Classify findings by severity, confidence, expected impact, and validation path.\n- Recommend actions without executing mutating changes unless the user explicitly approves them.\n</scope>\n\n<evidence>\n- must_verify_with_api: true\n- must_paginate: true\n- no_inference_from_names: true\n- state_limitations: true\n- include_api_failures: true\n- cite_files_or_commands: true\n</evidence>\n\n<expected_output>\nStyle: incident investigation brief with evidence, timeline, and next actions\n- ECS Service Recovery Readiness Check summary and decision context\n- Verified scope covering ECS, ELB, CloudWatch\n- Evidence inventory with commands, files, APIs, logs, metrics, or artifacts used\n- Timeline or sequence of relevant events with evidence links\n- Findings grouped by severity with impact and confidence\n- Recommended actions with owner, priority, effort, expected impact, and validation steps\n- Assumptions, failed checks, missing permissions, and known limitations\n</expected_output>\n\n<quality>\n- Confirm every material claim is backed by cited evidence or marked as an assumption.\n- Verify counts, percentages, severity labels, and recommendations before presenting the result.\n- Separate confirmed customer or service impact from suspected impact.\n- Ensure the final answer includes every required output contract section.\n- Confirm no destructive or production-impacting action is executed without explicit approval.\n</quality>\n\n<safety>\n- Operate read-only unless the user explicitly approves a change.\n- Do not delete, mutate, deploy, rotate, revoke, or reconfigure production resources.\n- Do not invent evidence. Clearly mark unknowns and unavailable APIs.\n- Ask for explicit confirmation before recommending execution of destructive or high-risk actions.\n- Separate verified findings from hypotheses and recommendations.\n</safety>\n\n<output_contract>\nReturn Markdown with these required sections:\n- incident_summary\n- scope_and_time_window\n- evidence_timeline\n- signals_reviewed\n- findings_by_severity\n- suspected_and_confirmed_causes\n- customer_or_service_impact\n- immediate_actions\n- follow_up_validation\n- limitations\n</output_contract>",
+  "adapters": {
+    "codex": {
+      "format": "task-prompt",
+      "notes": "Use inside AGENTS.md or as a direct Codex task with repository context."
+    },
+    "claude_code": {
+      "format": "CLAUDE.md compatible task",
+      "notes": "Use with repository-level CLAUDE.md instructions."
+    },
+    "kiro": {
+      "format": "steering/spec/task",
+      "notes": "Export as steering files or spec documents for Kiro-compatible workflows."
+    },
+    "cursor": {
+      "format": "workspace-rule-or-task",
+      "notes": "Use as a Cursor workspace rule or task prompt."
+    },
+    "windsurf": {
+      "format": "workspace-rule-or-task",
+      "notes": "Use as a Windsurf rule or task prompt."
+    },
+    "github_copilot": {
+      "format": "copilot-instructions",
+      "notes": "Use as.github/copilot-instructions.md guidance."
+    }
+  },
+  "evaluation": {
+    "maturity_level": "L3",
+    "scorecard": {
+      "clarity": 4,
+      "evidence": 4,
+      "safety": 5,
+      "output_contract": 5,
+      "portability": 4,
+      "reusability": 4,
+      "community_value": 4,
+      "maintainability": 4
+    }
+  },
+  "tags": [
+    "troubleshooting",
+    "ecs",
+    "health-check",
+    "deployment"
+  ],
+  "changelog": [
+    {
+      "version": "0.1.0",
+      "date": "2026-05-15",
+      "changes": [
+        "Initial library version."
+      ]
+    }
+  ]
+}

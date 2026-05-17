@@ -1,0 +1,212 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://playbookops.dev/schemas/playbook.schema.json",
+  "title": "PlaybookOps Playbook",
+  "type": "object",
+  "required": [
+    "id",
+    "title",
+    "summary",
+    "description",
+    "domain",
+    "category",
+    "tools",
+    "difficulty",
+    "risk_level",
+    "execution_mode",
+    "status",
+    "owner",
+    "version",
+    "requires_permissions",
+    "input_variables",
+    "output_contract",
+    "expected_output",
+    "evidence_policy",
+    "safety_rules",
+    "prompt",
+    "adapters",
+    "evaluation",
+    "tags",
+    "changelog"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 3
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 10
+    },
+    "description": {
+      "type": "string",
+      "minLength": 10
+    },
+    "when_to_use": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "domain": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "tools": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "cloud": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "services": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "difficulty": {
+      "enum": [
+        "beginner",
+        "intermediate",
+        "advanced"
+      ]
+    },
+    "risk_level": {
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "execution_mode": {
+      "enum": [
+        "read-only",
+        "write-proposal",
+        "guarded-write",
+        "destructive-requires-approval"
+      ]
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "validated",
+        "deprecated"
+      ]
+    },
+    "owner": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "requires_permissions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "input_variables": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "type",
+          "required",
+          "description"
+        ]
+      }
+    },
+    "output_contract": {
+      "type": "object",
+      "required": [
+        "format",
+        "sections"
+      ]
+    },
+    "expected_output": {
+      "type": "object",
+      "required": [
+        "style",
+        "sections",
+        "quality_checks"
+      ],
+      "properties": {
+        "style": {
+          "type": "string",
+          "minLength": 3
+        },
+        "sections": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 3
+          }
+        },
+        "quality_checks": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 3
+          }
+        }
+      }
+    },
+    "evidence_policy": {
+      "type": "object",
+      "required": [
+        "state_limitations",
+        "include_api_failures"
+      ]
+    },
+    "safety_rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "prompt": {
+      "type": "string",
+      "minLength": 50
+    },
+    "adapters": {
+      "type": "object"
+    },
+    "evaluation": {
+      "type": "object",
+      "required": [
+        "maturity_level",
+        "scorecard"
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "changelog": {
+      "type": "array",
+      "minItems": 1
+    }
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "id": "guardduty-signal-triage-playbook",
+  "title": "GuardDuty Signal Triage Playbook",
+  "summary": "Security review for GuardDuty, focused on evidence-backed exposure, control gaps, remediation priority, and residual risk.",
+  "description": "GuardDuty Signal Triage Playbook guides a scoped review of GuardDuty, turning verified evidence into risk-aware findings, practical recommendations, validation checks, and explicit limitations.",
+  "when_to_use": [
+    "Use when a security or delivery workflow needs risk-ranked findings backed by files, policies, scans, or platform evidence.",
+    "Use before releases, compliance checks, dependency updates, infrastructure changes, or remediation planning."
+  ],
+  "domain": "devsecops",
+  "category": "security",
+  "tools": [
+    "codex",
+    "claude-code",
+    "kiro",
+    "cursor",
+    "windsurf",
+    "github-copilot",
+    "gemini-cli",
+    "aider"
+  ],
+  "cloud": [
+    "generic"
+  ],
+  "services": [
+    "GuardDuty"
+  ],
+  "difficulty": "intermediate",
+  "risk_level": "high",
+  "execution_mode": "read-only",
+  "status": "validated",
+  "owner": "community",
+  "version": "0.1.0",
+  "requires_permissions": [
+    "guardduty:ListDetectors"
+  ],
+  "input_variables": [
+    {
+      "name": "scope",
+      "type": "string",
+      "required": true,
+      "description": "System, account, repository, service, or feature scope to inspect."
+    },
+    {
+      "name": "environment",
+      "type": "string",
+      "required": false,
+      "default": "unknown",
+      "description": "Environment such as dev, staging, production, or shared services."
+    },
+    {
+      "name": "lookback_days",
+      "type": "number",
+      "required": false,
+      "default": 30,
+      "description": "Lookback window for metrics, logs, incidents, costs, or repository history."
+    }
+  ],
+  "output_contract": {
+    "format": "markdown",
+    "sections": [
+      "security_review_summary",
+      "scope_and_assets",
+      "evidence_collected",
+      "findings_by_severity",
+      "exploitability_and_impact",
+      "remediation_plan",
+      "validation_checks",
+      "residual_risk",
+      "limitations"
+    ]
+  },
+  "expected_output": {
+    "style": "risk-focused security review with actionable remediation",
+    "sections": [
+      "GuardDuty Signal Triage Playbook summary and decision context",
+      "Verified scope covering GuardDuty",
+      "Evidence inventory with commands, files, APIs, logs, metrics, or artifacts used",
+      "Findings grouped by severity with impact and confidence",
+      "Recommended actions with owner, priority, effort, expected impact, and validation steps",
+      "Assumptions, failed checks, missing permissions, and known limitations"
+    ],
+    "quality_checks": [
+      "Confirm every material claim is backed by cited evidence or marked as an assumption.",
+      "Verify counts, percentages, severity labels, and recommendations before presenting the result.",
+      "Ensure the final answer includes every required output contract section.",
+      "Confirm no destructive or production-impacting action is executed without explicit approval."
+    ]
+  },
+  "evidence_policy": {
+    "must_verify_with_api": true,
+    "must_paginate": true,
+    "no_inference_from_names": true,
+    "state_limitations": true,
+    "include_api_failures": true,
+    "cite_files_or_commands": true
+  },
+  "safety_rules": [
+    "Operate read-only unless the user explicitly approves a change.",
+    "Do not delete, mutate, deploy, rotate, revoke, or reconfigure production resources.",
+    "Do not invent evidence. Clearly mark unknowns and unavailable APIs.",
+    "Ask for explicit confirmation before recommending execution of destructive or high-risk actions.",
+    "Separate verified findings from hypotheses and recommendations."
+  ],
+  "prompt": "<role>\nYou are a senior devsecops engineer executing a PlaybookOps workflow for GuardDuty Signal Triage Playbook.\n</role>\n\n<context>\nGuardDuty Signal Triage Playbook guides a scoped review of GuardDuty, turning verified evidence into risk-aware findings, practical recommendations, validation checks, and explicit limitations.\nDomain: devsecops\nCategory: security\nServices or systems: GuardDuty\nExecution mode: read-only\nRisk level: high\n</context>\n\n<task>\nUse the required inputs (scope) to inspect the declared scope and produce a decision-ready result for GuardDuty Signal Triage Playbook.\nCollect only verifiable evidence from repository files, commands, APIs, logs, metrics, dashboards, tickets, or user-provided artifacts.\nDo not treat naming conventions, ownership guesses, or environment labels as facts unless they are verified.\n</task>\n\n<scope>\n- Analyze GuardDuty within the declared scope.\n- Use these minimum permissions or evidence channels when applicable: guardduty:ListDetectors.\n- Classify findings by severity, confidence, expected impact, and validation path.\n- Recommend actions without executing mutating changes unless the user explicitly approves them.\n</scope>\n\n<evidence>\n- must_verify_with_api: true\n- must_paginate: true\n- no_inference_from_names: true\n- state_limitations: true\n- include_api_failures: true\n- cite_files_or_commands: true\n</evidence>\n\n<expected_output>\nStyle: risk-focused security review with actionable remediation\n- GuardDuty Signal Triage Playbook summary and decision context\n- Verified scope covering GuardDuty\n- Evidence inventory with commands, files, APIs, logs, metrics, or artifacts used\n- Findings grouped by severity with impact and confidence\n- Recommended actions with owner, priority, effort, expected impact, and validation steps\n- Assumptions, failed checks, missing permissions, and known limitations\n</expected_output>\n\n<quality>\n- Confirm every material claim is backed by cited evidence or marked as an assumption.\n- Verify counts, percentages, severity labels, and recommendations before presenting the result.\n- Ensure the final answer includes every required output contract section.\n- Confirm no destructive or production-impacting action is executed without explicit approval.\n</quality>\n\n<safety>\n- Operate read-only unless the user explicitly approves a change.\n- Do not delete, mutate, deploy, rotate, revoke, or reconfigure production resources.\n- Do not invent evidence. Clearly mark unknowns and unavailable APIs.\n- Ask for explicit confirmation before recommending execution of destructive or high-risk actions.\n- Separate verified findings from hypotheses and recommendations.\n</safety>\n\n<output_contract>\nReturn Markdown with these required sections:\n- security_review_summary\n- scope_and_assets\n- evidence_collected\n- findings_by_severity\n- exploitability_and_impact\n- remediation_plan\n- validation_checks\n- residual_risk\n- limitations\n</output_contract>",
+  "adapters": {
+    "codex": {
+      "format": "task-prompt",
+      "notes": "Use inside AGENTS.md or as a direct Codex task with repository context."
+    },
+    "claude_code": {
+      "format": "CLAUDE.md compatible task",
+      "notes": "Use with repository-level CLAUDE.md instructions."
+    },
+    "kiro": {
+      "format": "steering/spec/task",
+      "notes": "Export as steering files or spec documents for Kiro-compatible workflows."
+    },
+    "cursor": {
+      "format": "workspace-rule-or-task",
+      "notes": "Use as a Cursor workspace rule or task prompt."
+    },
+    "windsurf": {
+      "format": "workspace-rule-or-task",
+      "notes": "Use as a Windsurf rule or task prompt."
+    },
+    "github_copilot": {
+      "format": "copilot-instructions",
+      "notes": "Use as.github/copilot-instructions.md guidance."
+    }
+  },
+  "evaluation": {
+    "maturity_level": "L3",
+    "scorecard": {
+      "clarity": 4,
+      "evidence": 4,
+      "safety": 5,
+      "output_contract": 5,
+      "portability": 4,
+      "reusability": 4,
+      "community_value": 4,
+      "maintainability": 4
+    }
+  },
+  "tags": [
+    "security",
+    "guardduty",
+    "threat-detection",
+    "triage",
+    "remediation"
+  ],
+  "changelog": [
+    {
+      "version": "0.1.0",
+      "date": "2026-05-15",
+      "changes": [
+        "Initial library version."
+      ]
+    }
+  ]
+}

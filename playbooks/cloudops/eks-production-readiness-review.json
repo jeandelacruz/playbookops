@@ -1,0 +1,168 @@
+{
+  "id": "eks-production-readiness-review",
+  "title": "EKS Production Readiness Review",
+  "summary": "Assess an EKS cluster against production readiness, security, scaling, observability, and resilience controls.",
+  "description": "EKS Production Readiness Review reviews EKS, EC2, IAM, CloudWatch, VPC for workload health, capacity signals, deployment posture, access risk, and production-readiness gaps.",
+  "when_to_use": [
+    "Use when an operations review needs verified infrastructure evidence, clear risk labels, and practical remediation guidance.",
+    "Use before platform changes, readiness reviews, migration planning, or operational cleanup where resource scope is known."
+  ],
+  "domain": "cloudops",
+  "category": "containers",
+  "tools": [
+    "codex",
+    "claude-code",
+    "kiro",
+    "cursor",
+    "windsurf",
+    "github-copilot",
+    "gemini-cli",
+    "aider"
+  ],
+  "cloud": [
+    "aws"
+  ],
+  "services": [
+    "EKS",
+    "EC2",
+    "IAM",
+    "CloudWatch",
+    "VPC"
+  ],
+  "difficulty": "advanced",
+  "risk_level": "high",
+  "execution_mode": "read-only",
+  "status": "draft",
+  "owner": "community",
+  "version": "0.1.0",
+  "requires_permissions": [
+    "eks:Describe*",
+    "ec2:Describe*",
+    "iam:Get*",
+    "cloudwatch:DescribeAlarms",
+    "ec2:DescribeVpcs"
+  ],
+  "input_variables": [
+    {
+      "name": "scope",
+      "type": "string",
+      "required": true,
+      "description": "System, account, repository, service, or feature scope to inspect."
+    },
+    {
+      "name": "environment",
+      "type": "string",
+      "required": false,
+      "default": "unknown",
+      "description": "Environment such as dev, staging, production, or shared services."
+    },
+    {
+      "name": "lookback_days",
+      "type": "number",
+      "required": false,
+      "default": 30,
+      "description": "Lookback window for metrics, logs, incidents, costs, or repository history."
+    }
+  ],
+  "output_contract": {
+    "format": "markdown",
+    "sections": [
+      "container_operations_summary",
+      "cluster_or_service_inventory",
+      "health_and_capacity_signals",
+      "deployment_and_scaling_findings",
+      "security_and_access_findings",
+      "reliability_risks",
+      "recommended_actions",
+      "validation_checks",
+      "limitations"
+    ]
+  },
+  "expected_output": {
+    "style": "decision-ready cloud operations assessment",
+    "sections": [
+      "EKS Production Readiness Review summary and decision context",
+      "Verified scope covering EKS, EC2, IAM, CloudWatch, VPC",
+      "Evidence inventory with commands, files, APIs, logs, metrics, or artifacts used",
+      "Findings grouped by severity with impact and confidence",
+      "Recommended actions with owner, priority, effort, expected impact, and validation steps",
+      "Assumptions, failed checks, missing permissions, and known limitations"
+    ],
+    "quality_checks": [
+      "Confirm every material claim is backed by cited evidence or marked as an assumption.",
+      "Verify counts, percentages, severity labels, and recommendations before presenting the result.",
+      "Ensure the final answer includes every required output contract section.",
+      "Confirm no destructive or production-impacting action is executed without explicit approval."
+    ]
+  },
+  "evidence_policy": {
+    "must_verify_with_api": true,
+    "must_paginate": true,
+    "no_inference_from_names": true,
+    "state_limitations": true,
+    "include_api_failures": true,
+    "cite_files_or_commands": true
+  },
+  "safety_rules": [
+    "Operate read-only unless the user explicitly approves a change.",
+    "Do not delete, mutate, deploy, rotate, revoke, or reconfigure production resources.",
+    "Do not invent evidence. Clearly mark unknowns and unavailable APIs.",
+    "Ask for explicit confirmation before recommending execution of destructive or high-risk actions.",
+    "Separate verified findings from hypotheses and recommendations."
+  ],
+  "prompt": "<role>\nYou are a senior cloudops engineer executing a PlaybookOps workflow for EKS Production Readiness Review.\n</role>\n\n<context>\nEKS Production Readiness Review reviews EKS, EC2, IAM, CloudWatch, VPC for workload health, capacity signals, deployment posture, access risk, and production-readiness gaps.\nDomain: cloudops\nCategory: containers\nServices or systems: EKS, EC2, IAM, CloudWatch, VPC\nExecution mode: read-only\nRisk level: high\n</context>\n\n<task>\nUse the required inputs (scope) to inspect the declared scope and produce a decision-ready result for EKS Production Readiness Review.\nCollect only verifiable evidence from repository files, commands, APIs, logs, metrics, dashboards, tickets, or user-provided artifacts.\nDo not treat naming conventions, ownership guesses, or environment labels as facts unless they are verified.\n</task>\n\n<scope>\n- Analyze EKS, EC2, IAM, CloudWatch, VPC within the declared scope.\n- Use these minimum permissions or evidence channels when applicable: eks:Describe*, ec2:Describe*, iam:Get*, cloudwatch:DescribeAlarms, ec2:DescribeVpcs.\n- Classify findings by severity, confidence, expected impact, and validation path.\n- Recommend actions without executing mutating changes unless the user explicitly approves them.\n</scope>\n\n<evidence>\n- must_verify_with_api: true\n- must_paginate: true\n- no_inference_from_names: true\n- state_limitations: true\n- include_api_failures: true\n- cite_files_or_commands: true\n</evidence>\n\n<expected_output>\nStyle: decision-ready cloud operations assessment\n- EKS Production Readiness Review summary and decision context\n- Verified scope covering EKS, EC2, IAM, CloudWatch, VPC\n- Evidence inventory with commands, files, APIs, logs, metrics, or artifacts used\n- Findings grouped by severity with impact and confidence\n- Recommended actions with owner, priority, effort, expected impact, and validation steps\n- Assumptions, failed checks, missing permissions, and known limitations\n</expected_output>\n\n<quality>\n- Confirm every material claim is backed by cited evidence or marked as an assumption.\n- Verify counts, percentages, severity labels, and recommendations before presenting the result.\n- Ensure the final answer includes every required output contract section.\n- Confirm no destructive or production-impacting action is executed without explicit approval.\n</quality>\n\n<safety>\n- Operate read-only unless the user explicitly approves a change.\n- Do not delete, mutate, deploy, rotate, revoke, or reconfigure production resources.\n- Do not invent evidence. Clearly mark unknowns and unavailable APIs.\n- Ask for explicit confirmation before recommending execution of destructive or high-risk actions.\n- Separate verified findings from hypotheses and recommendations.\n</safety>\n\n<output_contract>\nReturn Markdown with these required sections:\n- container_operations_summary\n- cluster_or_service_inventory\n- health_and_capacity_signals\n- deployment_and_scaling_findings\n- security_and_access_findings\n- reliability_risks\n- recommended_actions\n- validation_checks\n- limitations\n</output_contract>",
+  "adapters": {
+    "codex": {
+      "format": "task-prompt",
+      "notes": "Use inside AGENTS.md or as a direct Codex task with repository context."
+    },
+    "claude_code": {
+      "format": "CLAUDE.md compatible task",
+      "notes": "Use with repository-level CLAUDE.md instructions."
+    },
+    "kiro": {
+      "format": "steering/spec/task",
+      "notes": "Export as steering files or spec documents for Kiro-compatible workflows."
+    },
+    "cursor": {
+      "format": "workspace-rule-or-task",
+      "notes": "Use as a Cursor workspace rule or task prompt."
+    },
+    "windsurf": {
+      "format": "workspace-rule-or-task",
+      "notes": "Use as a Windsurf rule or task prompt."
+    },
+    "github_copilot": {
+      "format": "copilot-instructions",
+      "notes": "Use as.github/copilot-instructions.md guidance."
+    }
+  },
+  "evaluation": {
+    "maturity_level": "L3",
+    "scorecard": {
+      "clarity": 4,
+      "evidence": 4,
+      "safety": 5,
+      "output_contract": 5,
+      "portability": 4,
+      "reusability": 4,
+      "community_value": 4,
+      "maintainability": 4
+    }
+  },
+  "tags": [
+    "aws",
+    "eks",
+    "kubernetes",
+    "readiness"
+  ],
+  "changelog": [
+    {
+      "version": "0.1.0",
+      "date": "2026-05-15",
+      "changes": [
+        "Initial library version."
+      ]
+    }
+  ]
+}
